@@ -7,26 +7,21 @@ import plotly.graph_objs as go
 from plotly.offline import init_notebook_mode, plot
 #init_notebook_mode(connected=True)
 
-#import csv file
+# import data sets
 quake = pd.read_csv('C:/Users/Garrett/Python-Armageddon-Project/Armageddon/Datasets/earthquakes1970-2014.csv')
-#quake = pd.read_csv('/Users/garrettmorris/Desktop/database_stuff/earthquakes.csv')
 volcano = pd.read_csv('C:/Users/Garrett/Python-Armageddon-Project/Armageddon/Datasets/volcanoes-worldwide.csv')
-#airports = pd.read_csv('/Users/garrettmorris/Desktop/database_stuff/airports.csv', error_bad_lines=False)
 ufos = pd.read_csv('C:/Users/Garrett/Python-Armageddon-Project/Armageddon/Datasets/UFO-sightings.csv', sep=r'\s*,\s*', engine='python')
-# dtype={
-#     "datetime" : str, "city": str, "state": str, "country": str, "shape": str, "duration (seconds)": str, "duration (hours/min)" : str, "comments": str, "date posted": str, "latitude": float, "longitude": float
-# })
-#datetime,city,state,country,shape,duration (seconds),duration (hours/min),comments,date posted,latitude,longitude
-#ufos = pd.read_csv('/Users/garrettmorris/Desktop/database_stuff/ufo_sightings.csv', error_bad_lines=False)
+
 
 # get mapbox token
 # mapbox_access_token = open("/Users/garrettmorris/Desktop/database_stuff/A07/mapbox_token2.txt").read()
 mapbox_access_token = "pk.eyJ1IjoiZ2FycmV0dDQzMTEiLCJhIjoiY2t4eXpocTJ5Nm5uYzJubzRwYjcxdWQ0NiJ9.BCXazv5KMTA4_Kuromx2_Q"
 
-# mapbox_style = "mapbox://styles/garrett4311/ck1s78co60uht1crol6lxs6fr"
+# set map style
 mapbox_style = "mapbox://styles/mapbox/navigation-night-v1"
 
-# #set the geo spatial data
+# set the geo spatial data
+# earthquakes
 data = [go.Scattermapbox(
             lat= quake['Latitude'] ,
             lon= quake['Longitude'],
@@ -39,6 +34,7 @@ data = [go.Scattermapbox(
             ),
             name='Earthquakes'
           )]
+# UFOs
 data2 = [go.Scattermapbox(
             lat= ufos['latitude'] ,
             lon= ufos['longitude'] ,
@@ -51,6 +47,7 @@ data2 = [go.Scattermapbox(
             ),
             name='UFOs'
           )]
+# Volcanoes
 data3 = [go.Scattermapbox(
             lat= volcano['Latitude'] ,
             lon= volcano['Longitude'],
@@ -63,7 +60,7 @@ data3 = [go.Scattermapbox(
             ),
             name='Volcanoes'
           )]
-#set the layout to plot
+# set the layout to plot
 layout = go.Layout(autosize=True,
                    mapbox= dict(accesstoken= mapbox_access_token,
                         bearing=0,
